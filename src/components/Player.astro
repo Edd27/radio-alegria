@@ -1,0 +1,45 @@
+<div class="relative border rounded-lg flex items-center justify-center px-3 py-10 shadow-xl w-full md:w-1/2 bg-white dark:bg-neutral-700 border-neutral-200 dark:border-neutral-700">
+  <span class="absolute text-xs top-2 right-2 bg-red-500 px-1 py-0.5 rounded font-bold text-white">EN VIVO</span>
+  <section>
+    <button id="play-button" class="text-white flex items-center justify-center px-2 py-2 rounded-full bg-orange-500 dark:bg-orange-600 hover:bg-orange-600 dark:hover:bg-orange-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
+        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
+      </svg>
+    </button>
+  </section>
+</div>
+<script>
+  import { config } from "../config";
+
+  const playButton = document.getElementById('play-button')
+  const audio = new Audio(config.transmision.url)
+  audio.autoplay = true
+  audio.muted = false
+
+  if(playButton) {
+    playButton.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play()
+      playButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-pause-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
+        <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
+      </svg>`
+    } else {
+      audio.pause()
+      playButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-player-play-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor"></path>
+      </svg>`
+    }
+  })
+
+  console.log(audio)
+  }
+
+  
+</script>
