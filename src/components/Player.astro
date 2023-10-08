@@ -1,8 +1,23 @@
 ---
 import { config } from "../config";
 ---
+<style>
+  @keyframes custom-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.custom-spin {
+  animation: custom-spin 4s linear infinite;
+}
+</style>
 <div class="transition-colors relative border rounded-lg flex gap-5 h-fit md:w-fit md:min-w-[600px] p-5 shadow-xl w-full bg-white dark:bg-neutral-700 border-neutral-200 dark:border-neutral-700">
-  <div class="overflow-hidden rounded-xl shadow-xl w-full md:min-w-fit">
+  <div id="cd-container" class="relative overflow-hidden rounded-full shadow-xl w-full md:min-w-fit">
+    <div class="w-10 h-10 absolute bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-8 border-neutral-700"></div>
     <img src="/logo.jpg" alt="Logo de Radio Alegria" class="object-fill object-center w-full h-full"/>
   </div>
   <div class="w-full flex flex-col gap-5">
@@ -36,8 +51,9 @@ import { config } from "../config";
 
   const playButton = document.getElementById('play-button')
   const liveLabel = document.getElementById('live-label')
+  const cdContainer = document.getElementById('cd-container')
 
-  if(playButton && liveLabel) {
+  if(playButton && liveLabel && cdContainer) {
     playButton.addEventListener('click', () => {
       if (audio.paused) {
         audio.play()
@@ -48,6 +64,7 @@ import { config } from "../config";
           <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
         </svg>`
         liveLabel.classList.replace('bg-neutral-500', 'bg-red-500')
+        cdContainer.classList.toggle('custom-spin')
       } else {
         audio.pause()
         playButton.innerHTML = `
@@ -56,6 +73,7 @@ import { config } from "../config";
           <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor"></path>
         </svg>`
         liveLabel.classList.replace('bg-red-500', 'bg-neutral-500')
+        cdContainer.classList.toggle('custom-spin')
       }
     })
   }
@@ -89,7 +107,7 @@ import { config } from "../config";
 
   document.addEventListener('keydown', (e) => {
     e.preventDefault()
-    if (e.code === 'Space' && playButton) {
+    if (e.code === 'Space' && playButton && cdContainer) {
       if (audio.paused) {
         audio.play()
         playButton.innerHTML = `
@@ -98,6 +116,7 @@ import { config } from "../config";
           <path d="M9 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
           <path d="M17 4h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h2a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2z" stroke-width="0" fill="currentColor"></path>
         </svg>`
+        cdContainer.classList.toggle('custom-spin')
       } else {
         audio.pause()
         playButton.innerHTML = `
@@ -105,6 +124,7 @@ import { config } from "../config";
           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
           <path d="M6 4v16a1 1 0 0 0 1.524 .852l13 -8a1 1 0 0 0 0 -1.704l-13 -8a1 1 0 0 0 -1.524 .852z" stroke-width="0" fill="currentColor"></path>
         </svg>`
+        cdContainer.classList.toggle('custom-spin')
       }
     }
 
