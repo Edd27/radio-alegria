@@ -1,15 +1,15 @@
 ---
 import ToggleThemeButton from "./ToggleThemeButton.astro";
-
+import { config } from "../config";
 ---
 
 <nav class="w-full fixed h-16 px-3 md:px-16 lg:px-32 py-2 shadow-lg bg-orange-500 dark:bg-orange-600 text-white">
   <div class="flex items-center justify-between h-full overflow-hidden">
     <a href="/" class="overflow-hidden flex items-center gap-2">
-      <div class="w-10">
-        <img src="/radioalegria.jpg" alt="Logo de Radio Alegria" class="object-"/>
+      <div class="w-10 rounded-md overflow-hidden shadow-xl">
+        <img src="/logo.jpg" alt=`Logo de ${config.radio.title}` class="object-"/>
       </div>
-      <span class="hidden md:block text-2xl font-bold">Radio Alegría</span>
+      <span class="hidden md:block text-2xl font-bold">{config.radio.title}</span>
     </a>
     <ToggleThemeButton />
   </div>
